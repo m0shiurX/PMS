@@ -1,6 +1,6 @@
 <?php include 'header.php'; ?>
 <h1>Responsive Sidebar Navigation</h1>
-<table id="data-table-row-grouping" class="display" border="1" cellspacing="0" width="100%" id="searchproduct">
+<!-- <table id="data-table-row-grouping" class="display" border="1" cellspacing="0" width="100%" id="searchproduct">
     <thead>
         <tr>
         <th>Name</th>
@@ -106,5 +106,5 @@
            <td>7200</td>
         </tr>
     </tbody>
-</table>
+</table> -->
 <?php include 'footer.php'; ?>
