@@ -50,7 +50,7 @@
 			<ul>
 				<li class="cd-label">Main</li>
 				<li class="has-children overview">
-					<a href="#0">Overview</a>
+					<a href="#0">Dashboard</a>
 					
 					<ul>
 						<li><a href="#0">All Data</a></li>
