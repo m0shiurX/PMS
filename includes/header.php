@@ -1,3 +1,24 @@
+<?php
+	
+
+	// Get the application settings and parameters
+
+	require_once "config/params.php";
+	require_once ROOT."../includes/classes/session.php";
+	require_once ROOT."dbconnection.php";
+	require_once ROOT."../includes/classes/commons.php";
+
+	// Start the session if it's not yet set 
+	// and make it available on 
+	// all pages which include the header.php
+	!isset($_SESSION) ? session::init(): null;
+
+	// Get some common objects ready for various files
+	$dbh 	= new Dbconnect();
+	$commons = new Commons($dbh);
+
+?>
+
 <!doctype html>
 <html lang="en" class="no-js">
 <head>
@@ -6,9 +27,9 @@
 
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
 
-	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
-	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
-	<script src="js/modernizr.js"></script> <!-- Modernizr -->
+	<link rel="stylesheet" href="component/css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="component/css/style.css"> <!-- Resource style -->
+	<script src="component/js/modernizr.js"></script> <!-- Modernizr -->
   	
 	<title>Stock Management System | SMS</title>
 </head>
@@ -30,7 +51,7 @@
 				<li><a href="#0">Help</a></li>
 				<li class="has-children account">
 					<a href="#0">
-						<img src="img/cd-avatar.png" alt="avatar">
+						<img src="component/img/cd-avatar.png" alt="avatar">
 						Moshiur Rahman
 					</a>
 
@@ -38,7 +59,7 @@
 
 						<li><a href="#0">My Account</a></li>
 						<li><a href="#0">Change Password</a></li>
-						<li><a href="#0">Logout</a></li>
+						<li><a href="logout.php">Logout</a></li>
 					</ul>
 				</li>
 			</ul>

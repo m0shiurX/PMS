@@ -46,12 +46,12 @@ Main Page Content
 
 -------------------------------- */
 .cd-main-content .content-wrapper {
-  padding: 45px 5% 3em;
+  padding: 45px 3% 3em;
 }
 .cd-main-content .content-wrapper h1 {
   text-align: center;
   padding: 3em 0;
-  font-size: 2rem;
+  font-size: 1rem;
 }
 .cd-main-content::before {
   /* never visible - used to check MQ in jQuery */
@@ -61,7 +61,7 @@ Main Page Content
 @media only screen and (min-width: 768px) {
   .cd-main-content .content-wrapper {
     margin-left: 110px;
-    padding-top: 55px;
+    padding-top: 70px;
   }
   .cd-main-content .content-wrapper h1 {
     padding: 4em 0;
