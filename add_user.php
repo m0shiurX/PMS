@@ -31,7 +31,7 @@
 
 
 					<!-- We send the form information to process-new-admin.php to handle it -->
-					<form action="process-new-admin.php" method="POST">
+					<form action="user_approve.php" method="POST">
 						<div>
 							<label for="username">New Admin Username</label>
 							<input type="text" name="username" id="username">
@@ -52,5 +52,7 @@
 						</div>
 					</form>
 				</div>
-
+				<?php
+				include 'includes/footer.php';
+				?>
 

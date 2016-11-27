@@ -79,7 +79,7 @@
 			$request = $this->dbh->prepare("INSERT INTO kp_user (user_name, user_pwd) VALUES(?,?) ");
 
 			// Do not forget to encrypt the pasword before saving
-			return $request->execute([$user_name, session::hashPasword($user_pwd)]);
+			return $request->execute([$user_name, session::hashPassword($user_pwd)]);
 		}
 
 
