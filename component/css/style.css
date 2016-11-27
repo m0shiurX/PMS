@@ -728,3 +728,12 @@ Sidebar
     visibility: visible;
   }
 }
+
+
+.admin-box{
+  width: 400px;
+  height: 800px;
+  background-color: blueviolet;
+  margin: 0 auto;
+  padding: 50 30;
+}

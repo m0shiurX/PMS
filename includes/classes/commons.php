@@ -14,12 +14,12 @@
 
 
 	    /**
-	     * Check username
+	     * Check user_name
 	     */
-	    public function isAvailableUsername($username)
+	    public function isAvailableuser_name($user_name)
 	    {
 	        $request = $this->dbh->prepare("SELECT user_name FROM kp_user WHERE user_name = ?");
-	        return $request->execute( array($username) );
+	        return $request->execute( array($user_name) );
 	    }
 
 

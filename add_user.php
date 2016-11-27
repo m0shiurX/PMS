@@ -4,10 +4,10 @@
 
 	// Redirect visitor to the login page if he is trying to access
 	// this page without being logged in
-	// if (!isset($_SESSION['admin_session']) )
-	// {
-	// 	$commons->redirectTo(SITE_PATH.'index.php');
-	// }
+	if (!isset($_SESSION['admin_session']) )
+	{
+		$commons->redirectTo(SITE_PATH.'login.php');
+	}
 ?>
 
 				<div class="dashboard">

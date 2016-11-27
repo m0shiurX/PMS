@@ -5,5 +5,5 @@
 	if (isset($_SESSION['admin_session']) )
 	{
 		session::destroy('admin_session');
-		$commons->redirectTo(SITE_PATH.'index.php');
+		$commons->redirectTo(SITE_PATH.'login.php');
 	}
