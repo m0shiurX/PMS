@@ -26,19 +26,12 @@
 		</div>
 	<?php session::destroy('error'); endif ?>
 
-	<form action="approve.php" method="post">
-		<div>
-			<label for="username">Username</label>
-			<input type="text" name="username" id="username" placeholder="zooboole">
-		</div>
-		<div>
-			<label for="password">Password</label>
-			<input type="password" name="password" id="password" placeholder="MySecr3t Pass WORD">
-		</div>
-		<div class="activate">
-			<button type="submit" class="btn btn-1 btn-1a">Log in</button>
-		</div>
-	</form>
+	  <form action="approve.php" method="post"  class="form-signin">
+	  		<h2 class="form-signin-heading">Authenticate yourself!</h2>
+	  			<input type="text" name="username" id="username" class="form-control" placeholder="username" required autofocus>	  		
+	  			<input type="password" name="password" id="password" class="form-control" placeholder="password" required>
+	  			<button type="submit" class="btn">Log in</button>
+	  </form>
 </div>
 <?php include 'includes/footer.php'; ?>
 </body>

@@ -113,9 +113,9 @@
 					<a href="#0">Users</a>
 					
 					<ul>
-						<li><a href="#0">All Users</a></li>
-						<li><a href="#0">Edit User</a></li>
-						<li><a href="#0">Add User</a></li>
+						<li><a href="all_user.php">All Users</a></li>
+						<li><a href="edit_user.php">Edit User</a></li>
+						<li><a href="add_user.php">Add User</a></li>
 					</ul>
 				</li>
 			</ul>
