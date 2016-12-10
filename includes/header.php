@@ -17,10 +17,11 @@
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
 
 	<link rel="stylesheet" href="component/css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="component/css/bootstrap.css"> <!-- CSS bootstrap -->
 	<link rel="stylesheet" href="component/css/style.css"> <!-- Resource style -->
 	<script src="component/js/modernizr.js"></script> <!-- Modernizr -->
   	
-	<title>Stock Management System | SMS</title>
+	<title>SMS</title>
 </head>
 <body>
 	<header class="cd-main-header">
@@ -32,7 +33,7 @@
 			</form>
 		</div>  cd-search -->
 
-		<a href="#0" class="cd-nav-trigger">Menu<span></span></a>
+		<a href="#0" class="cd-nav-trigger"><span></span></a>
 
 		<nav class="cd-nav">
 			<ul class="cd-top-nav">
@@ -43,7 +44,6 @@
 						<img src="component/img/cd-avatar.png" alt="avatar">
 						<?php echo $_SESSION["admin_session"]; ?>
 					</a>
-
 					<ul>
 
 						<li><a href="#0">My Account</a></li>
@@ -60,70 +60,45 @@
 			<ul>
 				<li class="cd-label">Main</li>
 				<li class="has-children overview">
-					<a href="#0">Dashboard</a>
-					
-					<ul>
-						<li><a href="#0">All Data</a></li>
-						<li><a href="#0">Category 1</a></li>
-						<li><a href="#0">Category 2</a></li>
-					</ul>
+					<a href="index.php">Dashboard</a>
 				</li>
 				<li class="has-children notifications active">
-					<a href="#0">Notifications<span class="count">3</span></a>
+					<a href="#0">Statictics<!-- <span class="count">3</span> --></a>
 					
 					<ul>
-						<li><a href="#0">All Notifications</a></li>
-						<li><a href="#0">Friends</a></li>
-						<li><a href="#0">Other</a></li>
+						<li><a href="#0">Products</a></li>
+						<li><a href="#0">Raw Materials</a></li>
+						<li><a href="#0">Others</a></li>
 					</ul>
 				</li>
 
-				<li class="has-children comments">
-					<a href="#0">Comments</a>
-					
+				<li class="has-children stack active">
+					<a href="#0">Insert Data</a>
 					<ul>
-						<li><a href="#0">All Comments</a></li>
-						<li><a href="#0">Edit Comment</a></li>
-						<li><a href="#0">Delete Comment</a></li>
+						<li><a href="#0">Products</a></li>
+						<li><a href="#0">Raw Materials</a></li>
 					</ul>
 				</li>
 			</ul>
 
 			<ul>
-				<li class="cd-label">Secondary</li>
+				<li class="cd-label">Administration</li>
 				<li class="has-children bookmarks">
-					<a href="#0">Bookmarks</a>
-					
-					<ul>
-						<li><a href="#0">All Bookmarks</a></li>
-						<li><a href="#0">Edit Bookmark</a></li>
-						<li><a href="#0">Import Bookmark</a></li>
-					</ul>
+					<a href="products.php">Products</a>
 				</li>
 				<li class="has-children images">
-					<a href="#0">Images</a>
-					
-					<ul>
-						<li><a href="#0">All Images</a></li>
-						<li><a href="#0">Edit Image</a></li>
-					</ul>
+					<a href="raw.php">Raw Materials</a>
 				</li>
 
 				<li class="has-children users">
-					<a href="#0">Users</a>
-					
-					<ul>
-						<li><a href="all_user.php">All Users</a></li>
-						<li><a href="edit_user.php">Edit User</a></li>
-						<li><a href="add_user.php">Add User</a></li>
-					</ul>
+					<a href="user.php">Users</a>
 				</li>
 			</ul>
-
-			<ul>
+			<!-- <ul>
 				<li class="cd-label">Action</li>
-				<li class="action-btn"><a href="#0">+ Button</a></li>
-			</ul>
+				<li class="action-btn"><a href="#0">INSERT DATA</a></li>
+			</ul> -->
 		</nav>
 
 		<div class="content-wrapper">
+		<div class="container-fluid">
