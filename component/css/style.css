@@ -25,7 +25,10 @@ body::after {
 
 a {
   color: #1784c7;
-  text-decoration: none;
+  text-decoration: none !important;
+}
+a:hover {
+  text-decoration: none !important;
 }
 
 input {
@@ -571,12 +574,12 @@ Sidebar
     padding: 0.6em 0;
   }
   .cd-side-nav > ul > li:not(.action-btn):hover > a {
-    background-color: #33383e;
+    background-color: #33383e !important;
   }
   .cd-side-nav > ul > li > a {
     padding: 1em 1em 1em 42px;
     text-align: left;
-    border-bottom: none;
+    border-bottom: none !important;
   }
   .cd-side-nav > ul > li > a::before {
     top: 50%;
