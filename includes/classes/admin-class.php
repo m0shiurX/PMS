@@ -74,27 +74,46 @@
 		 * 
 		 */
 		
-		public function addNewAdmin($user_name, $user_pwd)
+		public function addNewAdmin($user_name, $user_pwd, $email, $full_name, $address, $contact)
 		{
-			$request = $this->dbh->prepare("INSERT INTO kp_user (user_name, user_pwd) VALUES(?,?) ");
+			$request = $this->dbh->prepare("INSERT INTO kp_user (user_name, user_pwd, email, full_name, address, contact) VALUES(?,?,?,?,?,?) ");
 
 			// Do not forget to encrypt the pasword before saving
-			return $request->execute([$user_name, session::hashPassword($user_pwd)]);
+			return $request->execute([$user_name, session::hashPassword($user_pwd), $email, $full_name, $address, $contact]);
 		}
+		/**
+		 * Fetch admins
+		 */
+		
+		public function fetchAdmin($limit = 10)
+		{
+			$request = $this->dbh->prepare("SELECT * FROM kp_user  ORDER BY user_id DESC  LIMIT $limit");
+			if ($request->execute()) {
+				return $request->fetchAll();
+			}
+			return false;
+		}
+
 
 
 		/**
 		 * Create a new row of product
 		 * 
 		 */
-		public function addNewProduct($name, $price, $expiry, $description)
+		public function addNewProduct($name, $unit, $details, $color, $length, $radious, $max, $min)
 		{
-			$request = $this->dbh->prepare("INSERT INTO products (product_name, product_price, product_expires_on, product_description, created_on) VALUES(?,?,?,?,?) ");
+			$request = $this->dbh->prepare("INSERT INTO kp_products (pro_name, pro_unit, pro_details, pro_color, pro_length, pro_radious, pro_max, pro_min) VALUES(?,?,?,?,?,?,?,?) ");
 
-			// Do not forget to encrypt the pasword before saving
-			return $request->execute([$name, $price, $expiry, $description, time()]);
+			return $request->execute([$name, $unit, $details, $color, $length, $radious, $max, $min]);
 		}
 
+		public function productExists( $pro_name )
+		{
+			$request = $this->dbh->prepare("SELECT pro_name FROM kp_dist WHERE pro_name = ?");
+			$request->execute([$pro_name]);
+			$Admindata = $request->fetchAll();
+			return sizeof($Admindata) != 0;
+		}
 
 		/**
 		 * Edit a product
@@ -114,7 +133,16 @@
 		
 		public function fetchProducts($limit = 100)
 		{
-			$request = $this->dbh->prepare("SELECT * FROM products  ORDER BY product_name  LIMIT $limit");
+			$request = $this->dbh->prepare("SELECT * FROM kp_products  ORDER BY pro_id  LIMIT $limit");
+			if ($request->execute()) {
+				return $request->fetchAll();
+			}
+			return false;
+		}
+
+		public function fetchrawProducts($limit = 100)
+		{
+			$request = $this->dbh->prepare("SELECT * FROM kp_raw  ORDER BY raw_id  LIMIT $limit");
 			if ($request->execute()) {
 				return $request->fetchAll();
 			}
