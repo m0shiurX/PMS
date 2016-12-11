@@ -65,6 +65,12 @@
 	</div>
 	<?php session::destroy('errors');
 		}
+	if ( isset($_SESSION['confirm']) ) { ?>
+	<div class="pannel panel-success">
+		<li><?= $_SESSION['confirm'] ?></li>
+	</div>
+	<?php session::destroy('confirm');
+	}
 
 	}
 ?>
