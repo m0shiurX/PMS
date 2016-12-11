@@ -12,12 +12,11 @@
 		$errors = array();
 
 		foreach($_POST as $key => $value){
-			$$key = $value;
+			if(empty($value) || trim($value) == '') {
+		    	$errors[$key] = $key." should not be empty.";  
+		  	} 
+		 	$$key = $value;
 		}
-
-		if(empty($value) || trim($value) == '') {
-		    $errors[$key] = $key." should not be empty.";
-		  } else{
 		  	// Now let's check if another admin is not using the new username already
 		  	if ($admins->productExists($_POST['name'])) 
 		  	{
@@ -34,7 +33,6 @@
 		  			session::set('confirm', 'New admin added successfully!');
 		  		}
 		  	}
-		  }
 
 		// If there is any error we send back to the form
 		if (!empty($errors) || sizeof($errors) != 0) 
@@ -49,5 +47,11 @@
 				</div>
 			<?php session::destroy('errors');
 			}
+		if ( isset($_SESSION['confirm']) ) { ?>
+		<div class="pannel panel-success">
+			<li><?= $_SESSION['confirm'] ?></li>
+		</div>
+		<?php session::destroy('confirm');
+		}
 	}
 ?>

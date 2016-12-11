@@ -82,25 +82,25 @@
 				      </div>
 				      <div class="form-group">
 				        <label for="unit">Unit</label>
-				        <input type="text" class="form-control" id="unit" name="unit" placeholder="Unit">
+				        <input type="text" class="form-control" id="unit" name="unit" placeholder="Unit" required>
 				      </div>
 				      <div class="form-group">
 				        <label for="details">Details</label>
-				        <input type="text" class="form-control" id="details" name="details" placeholder="Details">
+				        <input type="text" class="form-control" id="details" name="details" placeholder="Details" required>
 				      </div>
 				      <div class="form-group">
 				        <label for="color">Color</label>
-				        <input type="text" class="form-control" id="color" name="color" placeholder="Color">
+				        <input type="text" class="form-control" id="color" name="color" placeholder="Color" required>
 				      </div>
 
 				      <div class="form-group">
 				        <label for="length">Length</label>
-				        <input type="text" class="form-control" id="length" name="length" placeholder="Length">
+				        <input type="text" class="form-control" id="length" name="length" placeholder="Length" required>
 				      </div>
 
 				      <div class="form-group">
 				        <label for="radious">Radious</label>
-				        <input type="text" class="form-control" id="radious" name="radious" placeholder="Radious">
+				        <input type="text" class="form-control" id="radious" name="radious" placeholder="Radious" required>
 				      </div>
 				      <div class="form-group">
 				        <label for="max">Max</label>
