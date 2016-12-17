@@ -19,6 +19,8 @@
 	<link rel="stylesheet" href="component/css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="component/css/bootstrap.css"> <!-- CSS bootstrap -->
 	<link rel="stylesheet" href="component/css/style.css"> <!-- Resource style -->
+	<link rel="stylesheet" href="component/css/jquery.bootgrid.css"> <!-- CSS bootgrid -->
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/redmond/jquery-ui.css" />
 	<script src="component/js/modernizr.js"></script> <!-- Modernizr -->
   	
 	<title>SMS</title>

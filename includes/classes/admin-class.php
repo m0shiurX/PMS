@@ -1,5 +1,4 @@
 <?php
-
 	/**
 	* The admins class
 	* It contains all action and behaviours admins may have
@@ -107,10 +106,34 @@
 			return $request->execute([$name, $unit, $details, $color, $length, $radious, $max, $min]);
 		}
 
+		/**
+		 * Check if a raw product exist
+		 */
 		public function productExists( $pro_name )
 		{
-			$request = $this->dbh->prepare("SELECT pro_name FROM kp_dist WHERE pro_name = ?");
+			$request = $this->dbh->prepare("SELECT pro_name FROM kp_products WHERE pro_name = ?");
 			$request->execute([$pro_name]);
+			$Admindata = $request->fetchAll();
+			return sizeof($Admindata) != 0;
+		}
+
+		/**
+		 * Raw Products
+		 */
+		public function addRawProduct($name, $unit, $details)
+		{
+			$request = $this->dbh->prepare("INSERT INTO kp_raw (raw_name, raw_unit, raw_details) VALUES(?,?,?) ");
+
+			return $request->execute([$name, $unit, $details]);
+		}
+
+		/**
+		 * Check if a raw product exist
+		 */
+		public function rawproductExists( $raw_name )
+		{
+			$request = $this->dbh->prepare("SELECT raw_name FROM kp_raw WHERE raw_name = ?");
+			$request->execute([$raw_name]);
 			$Admindata = $request->fetchAll();
 			return sizeof($Admindata) != 0;
 		}
@@ -119,14 +142,22 @@
 		 * Edit a product
 		 */
 
-		public function updateProduct($id, $name, $price, $expiry, $description)
+		public function updateRawProduct($id, $name, $unit, $details)
 		{
-			$request = $this->dbh->prepare("UPDATE products SET product_name = ?, product_price = ?, product_expires_on = ?, product_description = ? WHERE id = ? ");
+			$request = $this->dbh->prepare("UPDATE kp_raw SET raw_name = ?, raw_unit = ?, raw_details = ? WHERE raw_id = ? ");
 
 			// Do not forget to encrypt the pasword before saving
-			return $request->execute([$name, $price, $expiry, $description, $id]);
+			return $request->execute([$name, $unit, $details, $id]);
 		}
 
+		/*UPDATE Products*/
+		public function updateProduct($id, $name, $unit, $details, $color, $length, $radious, $max, $min)
+		{
+			$request = $this->dbh->prepare("UPDATE kp_products SET pro_name = ?, pro_unit = ?, pro_details = ?, pro_color = ?, pro_length = ?, pro_radious = ?, pro_max = ?, pro_min = ? WHERE pro_id = ? ");
+
+			// Do not forget to encrypt the pasword before saving
+			return $request->execute([$name, $unit, $details, $color, $length, $radious, $max, $min, $id]);
+		}
 		/**
 		 * Fetch products
 		 */
@@ -140,6 +171,9 @@
 			return false;
 		}
 
+		/**
+		 * Fetch raw products
+		 */
 		public function fetchrawProducts($limit = 100)
 		{
 			$request = $this->dbh->prepare("SELECT * FROM kp_raw  ORDER BY raw_id  LIMIT $limit");
@@ -158,11 +192,24 @@
 		{
 			if (is_int($id)) 
 			{
-				$request = $this->dbh->prepare("SELECT * FROM products WHERE id = ?");
+				$request = $this->dbh->prepare("SELECT * FROM kp_products WHERE pro_id = ?");
 				if ($request->execute([$id])) {
-					return $request->fetchAll();
+					return $request->fetchAll(PDO::FETCH_ASSOC);
 				}
 				return false;
+			}
+			return false;
+		}
+
+		/**
+		 *	Fetch a raw product
+		 */
+
+		public function getArawProduct($id)
+		{
+			$request = $this->dbh->prepare("SELECT * FROM kp_raw WHERE raw_id = ?");
+			if ($request->execute([$id])) {
+				return $request->fetchAll();
 			}
 			return false;
 		}
@@ -172,8 +219,15 @@
 		 */
 		public function deleteProduct($id)
 		{
-			$request = $this->dbh->prepare("DELETE FROM products WHERE id = ?");
+			$request = $this->dbh->prepare("DELETE FROM kp_products WHERE pro_id = ?");
 			return $request->execute([$id]);
 		}
 
+
+		/*jjd*/
+		public function deleterawProduct($id)
+		{
+			$request = $this->dbh->prepare("DELETE FROM kp_raw WHERE raw_id = ?");
+			return $request->execute([$id]);
+		}
 	}
