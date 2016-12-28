@@ -62,7 +62,7 @@
 									    	<input type="hidden" id="<?=$product->raw_id ?>" name="id" value="<?=$product->raw_id ?>">
 									      <div class="form-group">
 									      	<label for="nm">Name<?=$product->raw_id?></label>
-									        <input type="text" class="form-control" id="nm-<?=$product->raw_id ?>" name="name" aria-describedby="emailHelp" value="<?=$product->raw_name?>">
+									        <input type="text" class="form-control" id="nm-<?=$product->raw_id ?>" name="name" aria-describedby="emailHelp" value="<?=$product->raw_name?>" focused>
 									        <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone else.</small>
 									      </div>
 									      <div class="form-group">

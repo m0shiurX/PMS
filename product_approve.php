@@ -13,12 +13,13 @@
 			$name = $_POST['name'];
 			$unit = $_POST['unit'];
 			$details = $_POST['details'];
+			$category = $_POST['category'];
 			$color = $_POST['color'];
 			$length = $_POST['length'];
 			$radious = $_POST['radious'];
 			$max = $_POST['max'];
 			$min = $_POST['min'];
-			if (!$admins->addNewProduct($name, $unit, $details, $color, $length, $radious, $max, $min)) 
+			if (!$admins->addNewProduct($name, $unit, $details, $category, $color, $length, $radious, $max, $min)) 
 			{
 				echo "Sorry Data could not be inserted !";
 			}else {
@@ -37,13 +38,14 @@
 		$name = $_POST['name'];
 		$unit = $_POST['unit'];
 		$details = $_POST['details'];
+		$category = $_POST['category'];
 		$color = $_POST['color'];
 		$length = $_POST['length'];
 		$radious = $_POST['radious'];
 		$max = $_POST['max'];
 		$min = $_POST['min'];
 		$id = $_POST['id'];
-		if (!$admins->updateProduct($id, $name, $unit, $details, $color, $length, $radious, $max, $min)) 
+		if (!$admins->updateProduct($id, $name, $unit, $details, $category, $color, $length, $radious, $max, $min)) 
 		{
 			echo "Sorry Data could not be inserted !";
 		}else {
@@ -84,14 +86,14 @@
 										    <label for="details">Details</label>
 										    <input type="text" class="form-control" id="dt-<?=$product->pro_id?>" name="details" value="<?=$product->pro_details?>" required>
 										  </div>
-										  <!-- <div class="form-group">
+										  <div class="form-group">
 										      <label for="category">Select Category</label>
 										      <select class="form-control form-control-sm" name="category" id="category">
 										        <option>Vegetable</option>
 										        <option>Fastfood</option>
 										        <option>Nolegistic</option>
 										      </select>
-										  </div> -->
+										  </div>
 										  <div class="form-group">
 										    <label for="color">Color</label>
 										    <input type="text" class="form-control" id="cl-<?=$product->pro_id?>" name="color" value="<?=$product->pro_color?>" required>
@@ -129,6 +131,7 @@
 					<td><?=$product->pro_name?></td>
 					<td><?=$product->pro_unit?></td>
 					<td><?=$product->pro_details?></td>
+					<td><?=$product->pro_category?></td>
 					<td><?=$product->pro_color?></td>
 					<td><?=$product->pro_length?></td>
 					<td><?=$product->pro_radious?></td>

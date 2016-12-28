@@ -19,7 +19,6 @@
 	<link rel="stylesheet" href="component/css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="component/css/bootstrap.css"> <!-- CSS bootstrap -->
 	<link rel="stylesheet" href="component/css/style.css"> <!-- Resource style -->
-	<link rel="stylesheet" href="component/css/jquery.bootgrid.css"> <!-- CSS bootgrid -->
 	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/redmond/jquery-ui.css" />
 	<script src="component/js/modernizr.js"></script> <!-- Modernizr -->
   	
@@ -68,17 +67,18 @@
 					<a href="#0">Statictics<!-- <span class="count">3</span> --></a>
 					
 					<ul>
-						<li><a href="#0">Products</a></li>
-						<li><a href="#0">Raw Materials</a></li>
-						<li><a href="#0">Others</a></li>
+						<li><a href="product_stat.php">Production</a></li>
+						<li><a href="production_stat.php">Daily Statictics</a></li>
+						<li><a href="raw_stat.php">Raw Materials</a></li>
 					</ul>
 				</li>
 
 				<li class="has-children stack active">
 					<a href="#0">Insert Data</a>
 					<ul>
-						<li><a href="#0">Products</a></li>
-						<li><a href="#0">Raw Materials</a></li>
+						<li><a href="production.php">Production</a></li>
+						<li><a href="daily_data.php">Daily DATA</a></li>
+						<li><a href="raw_stat.php">Raw Data</a></li>
 					</ul>
 				</li>
 			</ul>

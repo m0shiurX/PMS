@@ -23,6 +23,7 @@
 		    <th data-column-id="name">Name</th>
 		    <th data-column-id="unit">Unit</th>
 		    <th data-column-id="details">Details</th>
+		    <th>Category</th>
 		    <th data-column-id="color">Color</th>
 		    <th data-column-id="length" data-type="numeric">Length</th>
 		    <th data-column-id="radious" data-type="numeric">Radious</th>
@@ -62,14 +63,19 @@
 				        <label for="details">Details</label>
 				        <input type="text" class="form-control" id="details" name="details" placeholder="Details" value="" required>
 				      </div>
-				      <!-- <div class="form-group">
+				      <div class="form-group">
 				          <label for="category">Select Category</label>
 				          <select class="form-control form-control-sm" name="category" id="category">
-				            <option>Vegetable</option>
-				            <option>Fastfood</option>
-				            <option>Nolegistic</option>
+				            <?php 
+				            require_once "includes/classes/admin-class.php";
+				            $admins	= new Admins($dbh);
+				            $categories = $admins->fetchCategory();
+				            	if (isset($categories) && sizeof($categories) > 0){ 
+				            	foreach ($categories as $category) { ?>
+				            	<option value='<?=$category->cat_name?>'><?=$category->cat_name?></option>
+				            <?php }} ?>
 				          </select>
-				      </div> -->
+				      </div>
 				      <div class="form-group">
 				        <label for="color">Color</label>
 				        <input type="text" class="form-control" id="color" name="color" placeholder="Color" value="" required>

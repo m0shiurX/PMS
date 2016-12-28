@@ -8,7 +8,7 @@ Primary style
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 65%;
 }
 
 body {
@@ -776,4 +776,9 @@ Sidebar
 .form-signin button {
   width:100%;
   height:40px;
+}
+.select-form-control {
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 33px !important;
 }

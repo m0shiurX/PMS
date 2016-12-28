@@ -99,11 +99,24 @@
 		 * Create a new row of product
 		 * 
 		 */
-		public function addNewProduct($name, $unit, $details, $color, $length, $radious, $max, $min)
+		public function addNewProduct($name, $unit, $details, $category, $color, $length, $radious, $max, $min)
 		{
-			$request = $this->dbh->prepare("INSERT INTO kp_products (pro_name, pro_unit, pro_details, pro_color, pro_length, pro_radious, pro_max, pro_min) VALUES(?,?,?,?,?,?,?,?) ");
-
-			return $request->execute([$name, $unit, $details, $color, $length, $radious, $max, $min]);
+			try {
+				$this->dbh->beginTransaction();
+					$request = $this->dbh->prepare("INSERT INTO kp_products (pro_name, pro_unit, pro_details, pro_category, pro_color, pro_length, pro_radious, pro_max, pro_min) VALUES(?,?,?,?,?,?,?,?,?) ");
+					$request->execute([$name, $unit, $details, $category, $color, $length, $radious, $max, $min]);
+					$pro_id = $this->dbh->lastInsertId();
+					$qty = 0;
+					$request2 = $this->dbh->prepare("INSERT INTO pro_finished (pro_id, pro_qty) VALUES (?, ?)");
+					$request2->execute([$pro_id, $qty]);
+					$request3 = $this->dbh->prepare("INSERT INTO pro_unfinished (pro_id, pro_qty) VALUES (?, ?)");
+					$request3->execute([$pro_id, $qty]);
+					$this->dbh->commit();
+					return true;
+			} catch (PDOException $e) {
+				$this->dbh->rollBack();
+				return false;
+			}
 		}
 
 		/**
@@ -151,12 +164,12 @@
 		}
 
 		/*UPDATE Products*/
-		public function updateProduct($id, $name, $unit, $details, $color, $length, $radious, $max, $min)
+		public function updateProduct($id, $name, $unit, $details, $category, $color, $length, $radious, $max, $min)
 		{
-			$request = $this->dbh->prepare("UPDATE kp_products SET pro_name = ?, pro_unit = ?, pro_details = ?, pro_color = ?, pro_length = ?, pro_radious = ?, pro_max = ?, pro_min = ? WHERE pro_id = ? ");
+			$request = $this->dbh->prepare("UPDATE kp_products SET pro_name = ?, pro_unit = ?, pro_details = ?, pro_category = ?, pro_color = ?, pro_length = ?, pro_radious = ?, pro_max = ?, pro_min = ? WHERE pro_id = ? ");
 
 			// Do not forget to encrypt the pasword before saving
-			return $request->execute([$name, $unit, $details, $color, $length, $radious, $max, $min, $id]);
+			return $request->execute([$name, $unit, $details, $category, $color, $length, $radious, $max, $min, $id]);
 		}
 		/**
 		 * Fetch products
@@ -190,15 +203,11 @@
 		
 		public function getAProduct($id)
 		{
-			if (is_int($id)) 
-			{
 				$request = $this->dbh->prepare("SELECT * FROM kp_products WHERE pro_id = ?");
 				if ($request->execute([$id])) {
-					return $request->fetchAll(PDO::FETCH_ASSOC);
+					return $request->fetch();
 				}
 				return false;
-			}
-			return false;
 		}
 
 		/**
@@ -224,10 +233,122 @@
 		}
 
 
-		/*jjd*/
+		/*
+		 *	Delete a raw product
+		 */
+
 		public function deleterawProduct($id)
 		{
 			$request = $this->dbh->prepare("DELETE FROM kp_raw WHERE raw_id = ?");
 			return $request->execute([$id]);
 		}
+
+		/**
+		* Insert product data
+		*/
+		public function insertProductData( $proselect, $production, $date, $finished, $unfinished )
+		{
+			try {
+				$this->dbh->beginTransaction();
+					$request = $this->dbh->prepare("INSERT INTO kp_production (pro_id, pro_qty, date) VALUES(?,?,?)");
+					$request->execute([$proselect, $production, $date]);
+
+					$request2 = $this->dbh->prepare("UPDATE pro_finished SET pro_qty = pro_qty+? WHERE pro_id = ?");
+					$request2->execute([$finished, $proselect]);
+
+					$request3 = $this->dbh->prepare("UPDATE pro_unfinished SET pro_qty = pro_qty+? WHERE pro_id = ?");
+					$request3->execute([$unfinished, $proselect]);
+				$this->dbh->commit();
+				return true;
+			} catch (PDOException $e) {
+				$this->dbh->rollBack();
+				return false;
+			}
+		}
+
+
+		/*production to stocking table*/
+		public function insertProductionData( $proselect, $sold, $date, $waste, $return )
+		{	
+			$availableProducts = ($sold+$waste)-$return;
+			try {
+				$this->dbh->beginTransaction();
+					$request = $this->dbh->prepare("INSERT INTO kp_stocking (pro_id, date, pro_sold, pro_waste, pro_return) VALUES(?,?,?,?,?)");
+					$request->execute([$proselect, $date, $sold, $waste, $return]);
+
+					$request2 = $this->dbh->prepare("UPDATE pro_finished SET pro_qty = pro_qty-? WHERE pro_id = ?");
+					$request2->execute([$availableProducts, $proselect]);
+
+				$this->dbh->commit();
+				return true;
+			} catch (PDOException $e) {
+				$this->dbh->rollBack();
+				return false;
+			}
+		}
+
+
+
+		/*
+		*Fetch production from database
+		*/
+		public function fetchProduction($limit = 100)
+		{
+			$request = $this->dbh->prepare("SELECT * FROM kp_production  ORDER BY id DESC LIMIT $limit");
+			if ($request->execute()) {
+				return $request->fetchAll();
+			}
+			return false;
+		}
+
+		/**
+		*Get list of finished products
+		*/
+		public function getfinishedProduct($id)
+		{
+				$request = $this->dbh->prepare("SELECT * FROM pro_finished WHERE pro_id = ?");
+				if ($request->execute([$id])) {
+					return $request->fetch();
+				}
+				return false;
+		}
+
+		/**
+		* Get list of unfinished products
+		*
+		*/
+		public function getunfinishedProduct($id)
+		{
+				$request = $this->dbh->prepare("SELECT * FROM pro_unfinished WHERE pro_id = ?");
+				if ($request->execute([$id])) {
+					return $request->fetch();
+				}
+				return false;
+		}
+
+		/*
+		*	Fetch production from database
+		*/
+		public function fetchProductionData($limit = 100)
+		{
+			$request = $this->dbh->prepare("SELECT * FROM kp_stocking  ORDER BY id DESC LIMIT $limit");
+			if ($request->execute()) {
+				return $request->fetchAll();
+			}
+			return false;
+		}
+
+		/**
+		 * Fetch category
+		 */
+		
+		public function fetchCategory()
+		{
+			$request = $this->dbh->prepare("SELECT cat_name FROM kp_category  ORDER BY cat_id ");
+			if ($request->execute()) {
+				return $request->fetchAll();
+			}
+			return false;
+		}
 	}
+
