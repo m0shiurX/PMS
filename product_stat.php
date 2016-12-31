@@ -26,8 +26,15 @@
 	<div class="col-md-12 col-sm-12">
 	<?php	$categories = $admins->fetchCategory();
 	foreach ($categories as $category) { $catname = $category->cat_name; ?>
+
+
+	<div class="card">
+	  <div class="card-header">
+	    	<?php echo "<p>".$catname."</p>"; ?>
+	  </div>
+	  <div class="card-text">
 		<table class="table table-striped">
-			<thead class="thead-inverse">
+			<thead class="thead">
 			  <tr>		
 			    <th>Product ID</th>
 			    <th>Product Name</th>
@@ -35,9 +42,6 @@
 			    <th>Finished</th>
 			    <th>Unfinished</th>
 			    <th>Unit</th>
-			  </tr>
-			  <tr>
-			  	<?php echo "<td colspan='6'>".$catname."</td>"; ?>
 			  </tr>
 			</thead>
 		  <tbody>
@@ -69,6 +73,8 @@
 				} ?>
 		  </tbody>
 		</table>
+	  </div>
+	</div>
 	<?php }
 		?>
 	</div>

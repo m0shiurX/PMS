@@ -71,6 +71,5 @@
 	</div>
 	<?php session::destroy('confirm');
 	}
-
-	}
+}
 ?>

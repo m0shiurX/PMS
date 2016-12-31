@@ -10,11 +10,11 @@
 	$page = isset($_GET[ 'p' ])?$_GET[ 'p' ]:'';
 
 	if($page == 'add'){
-			$name = $_POST['name'];
-			$unit = $_POST['unit'];
-			$details = $_POST['details'];
-			$category = $_POST['category'];
-			$color = $_POST['color'];
+			$name = htmlentities($_POST['name']);
+			$unit = htmlentities($_POST['unit']);
+			$details = htmlentities($_POST['details']);
+			$category = htmlentities($_POST['category']);
+			$color = htmlentities($_POST['color']);
 			$length = $_POST['length'];
 			$radious = $_POST['radious'];
 			$max = $_POST['max'];
@@ -35,11 +35,11 @@
 		}
 
 	}else if($page == 'edit'){
-		$name = $_POST['name'];
-		$unit = $_POST['unit'];
-		$details = $_POST['details'];
-		$category = $_POST['category'];
-		$color = $_POST['color'];
+		$name = htmlentities($_POST['name']);
+		$unit = htmlentities($_POST['unit']);
+		$details = htmlentities($_POST['details']);
+		$category = htmlentities($_POST['category']);
+		$color = htmlentities($_POST['color']);
 		$length = $_POST['length'];
 		$radious = $_POST['radious'];
 		$max = $_POST['max'];
