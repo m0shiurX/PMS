@@ -24,6 +24,8 @@
 	</div>
 	<div class="clear"><br><br></div>
 	<div class="col-md-12 col-sm-12">
+	<?php	$categories = $admins->fetchCategory();
+	foreach ($categories as $category) { $catname = $category->cat_name; ?>
 		<table class="table table-striped">
 			<thead class="thead-inverse">
 			  <tr>		
@@ -34,13 +36,15 @@
 			    <th>Unfinished</th>
 			    <th>Unit</th>
 			  </tr>
+			  <tr>
+			  	<?php echo "<td colspan='6'>".$catname."</td>"; ?>
+			  </tr>
 			</thead>
 		  <tbody>
 				<?php
-
-				$products = $admins->fetchProducts();
-				if (isset($products) && sizeof($products) > 0){ 
-					foreach ($products as $product) {
+				$products = $admins->fetchProductsC($catname);
+				if (isset($products) && sizeof($products) > 0){
+						foreach ($products as $product) {
 						$proID = $product->pro_id;
 
 						$proName = $admins->getAProduct($proID);
@@ -53,7 +57,7 @@
 						$unfinQty = $prounFinished->pro_qty;
 					 ?>
 						<tr>
-							<td scope="row"><?=$product->pro_id?></td>
+							<td><?=$product->pro_id?></td>
 							<td><?=$product->pro_name?></td>
 							<td><?=$product->pro_details?></td>
 							<td><?=$finQty?></td>
@@ -65,6 +69,8 @@
 				} ?>
 		  </tbody>
 		</table>
+	<?php }
+		?>
 	</div>
 <?php include 'includes/footer.php'; ?>
 <script type="text/javascript">

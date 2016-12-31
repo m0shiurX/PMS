@@ -53,7 +53,7 @@
 							  <div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal">×</button>
-									<h2>Edit Details</h2>
+									<h2>Edit Raw Details</h2>
 								</div>
 								<form method="POST">
 								<div class="modal-body">
@@ -61,9 +61,9 @@
 									    <!-- form content -->
 									    	<input type="hidden" id="<?=$product->raw_id ?>" name="id" value="<?=$product->raw_id ?>">
 									      <div class="form-group">
-									      	<label for="nm">Name<?=$product->raw_id?></label>
+									      	<label for="nm">Name</label>
 									        <input type="text" class="form-control" id="nm-<?=$product->raw_id ?>" name="name" aria-describedby="emailHelp" value="<?=$product->raw_name?>" focused>
-									        <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone else.</small>
+									        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone else.</small> -->
 									      </div>
 									      <div class="form-group">
 									        <label for="un">Unit</label>

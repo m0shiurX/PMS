@@ -19,7 +19,7 @@
 	<link rel="stylesheet" href="component/css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="component/css/bootstrap.css"> <!-- CSS bootstrap -->
 	<link rel="stylesheet" href="component/css/style.css"> <!-- Resource style -->
-	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/redmond/jquery-ui.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/redmond/jquery-ui.css" /> -->
 	<script src="component/js/modernizr.js"></script> <!-- Modernizr -->
   	
 	<title>SMS</title>
@@ -69,7 +69,7 @@
 					<ul>
 						<li><a href="product_stat.php">Production</a></li>
 						<li><a href="production_stat.php">Daily Statictics</a></li>
-						<li><a href="raw_stat.php">Raw Materials</a></li>
+						<li><a href="raw_data.php">Raw Materials</a></li>
 					</ul>
 				</li>
 

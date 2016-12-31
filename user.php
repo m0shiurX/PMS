@@ -9,15 +9,15 @@
 		$commons->redirectTo(SITE_PATH.'login.php');
 	}
 ?>
-
-	<div class="dashboard">		
-
-	<div class="col-md-12 col-sm-12" id="employee_table">
 		<?php
 			require_once "includes/classes/admin-class.php";
 			$admins = new Admins($dbh);
 			$users = $admins->fetchAdmin(); 
 		?>
+
+	<div class="dashboard">		
+
+	<div class="col-md-12 col-sm-12" id="employee_table">
 		<h3>List of Users</h3>
 		<hr>
 		<button type="button" name="add" id="add" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#add_data_Modal">ADD</button>
@@ -37,7 +37,7 @@
 		  <?php if (isset($users) && sizeof($users) > 0) :?>
 		  	<?php foreach ($users as $user) :?>
 		  		<tr>
-		  			<th scope="row"><?=$user->user_id ?></th>
+		  			<td scope="row"><?=$user->user_id ?></td>
 		  			<td>
 		  				<button type="button" id="add" class="btn btn-success">EDIT</button>
 		  				<button type="button" id="add" class="btn btn-warning">DELETE</button>
@@ -65,13 +65,13 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4>Insert Date</h4>
 				</div>
-					<form class="form-horizontal well" action="user_approve.php" method="POST" id="insert_form">
+					<form class="form-horizontal" action="" method="POST" id="insert_form">
 				<div class="modal-body">
 					    <!-- form content -->
 					      <div class="form-group">
 					        <label for="username">Username</label>
-					        <input type="username" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Enter email">
-					        <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone else.</small>
+					        <input type="username" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Username">
+					        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone else.</small> -->
 					      </div>
 					      <div class="form-group">
 					        <label for="password">Password</label>
@@ -79,15 +79,15 @@
 					      </div>
 					      <div class="form-group">
 					        <label for="repassword">Re enter Password</label>
-					        <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Password">
+					        <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Re enter password">
 					      </div>
 					      <div class="form-group">
 					        <label for="email">Email</label>
-					        <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+					        <input type="text" class="form-control" id="email" name="email" placeholder="Email Address">
 					      </div>
 					      <div class="form-group">
-					        <label for="fullname">Fullname</label>
-					        <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full name">
+					        <label for="fullname">Full Name</label>
+					        <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full Name">
 					      </div>
 
 					      <div class="form-group">

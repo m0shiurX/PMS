@@ -89,9 +89,15 @@
 										  <div class="form-group">
 										      <label for="category">Select Category</label>
 										      <select class="form-control form-control-sm" name="category" id="category">
-										        <option>Vegetable</option>
-										        <option>Fastfood</option>
-										        <option>Nolegistic</option>
+										      	<option><?=$product->pro_category?></option>
+										        <?php 
+										        require_once "includes/classes/admin-class.php";
+										        $admins	= new Admins($dbh);
+										        $categories = $admins->fetchCategory();
+										        	if (isset($categories) && sizeof($categories) > 0){ 
+										        	foreach ($categories as $category) { ?>
+										        	<option value='<?=$category->cat_name?>'><?=$category->cat_name?></option>
+										        <?php }} ?>
 										      </select>
 										  </div>
 										  <div class="form-group">
@@ -118,7 +124,7 @@
 										  </div>
 								</div>
 								<div class="modal-footer">
-								<button type="submit" onclick="upData(<?=$product->pro_id?>)" class="btn btn-primary btn-lg">Update<?=$product->pro_id?></button>
+								<button type="submit" onclick="upData(<?=$product->pro_id?>)" class="btn btn-primary btn-lg">Update</button>
 								<a href="#" class="btn btn-warning btn-lg" data-dismiss="modal">Cancel</a>
 								</div>
 								</form>

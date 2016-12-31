@@ -185,6 +185,19 @@
 		}
 
 		/**
+		 * Fetch products 
+		 */
+		
+		public function fetchProductsC($catname)
+		{
+			$request = $this->dbh->prepare("SELECT * FROM kp_products  WHERE pro_category = '$catname' ORDER BY pro_id");
+			if ($request->execute()) {
+				return $request->fetchAll();
+			}
+			return false;
+		}
+
+		/**
 		 * Fetch raw products
 		 */
 		public function fetchrawProducts($limit = 100)
@@ -218,7 +231,7 @@
 		{
 			$request = $this->dbh->prepare("SELECT * FROM kp_raw WHERE raw_id = ?");
 			if ($request->execute([$id])) {
-				return $request->fetchAll();
+				return $request->fetch();
 			}
 			return false;
 		}
@@ -258,6 +271,26 @@
 
 					$request3 = $this->dbh->prepare("UPDATE pro_unfinished SET pro_qty = pro_qty+? WHERE pro_id = ?");
 					$request3->execute([$unfinished, $proselect]);
+				$this->dbh->commit();
+				return true;
+			} catch (PDOException $e) {
+				$this->dbh->rollBack();
+				return false;
+			}
+		}
+
+		/**
+		* Insert Raw data stat
+		*/
+		public function insertRawData($raw_id, $date, $used, $purchased, $available)
+		{
+			try {
+				$this->dbh->beginTransaction();
+					$request = $this->dbh->prepare("INSERT INTO raw_stocking (raw_id, date, raw_purchesed, raw_used ) VALUES(?,?,?,?)");
+					$request->execute([$raw_id, $date, $purchased, $used]);
+
+					$request2 = $this->dbh->prepare("UPDATE kp_raw SET raw_quantity = raw_quantity+? WHERE raw_id = ?");
+					$request2->execute([$available, $raw_id]);
 				$this->dbh->commit();
 				return true;
 			} catch (PDOException $e) {
@@ -350,5 +383,17 @@
 			}
 			return false;
 		}
+		/**
+		 * Fetch raw products
+		 */
+		public function fetchrawEntry($limit = 100)
+		{
+			$request = $this->dbh->prepare("SELECT * FROM raw_stocking  ORDER BY id  LIMIT $limit");
+			if ($request->execute()) {
+				return $request->fetchAll();
+			}
+			return false;
+		}
+
 	}
 

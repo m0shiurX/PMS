@@ -18,17 +18,17 @@
 	<table id="product_data" class="table table-striped">
 		<thead class="thead-inverse">
 		  <tr>
-		    <th data-column-id="id" data-type="numeric">ID</th>
-		    <th data-column-id="commands" data-formatter="commands" data-sortable="false">Action</th>
-		    <th data-column-id="name">Name</th>
-		    <th data-column-id="unit">Unit</th>
-		    <th data-column-id="details">Details</th>
+		    <th>ID</th>
+		    <th>Action</th>
+		    <th>Name</th>
+		    <th>Unit</th>
+		    <th>Details</th>
 		    <th>Category</th>
-		    <th data-column-id="color">Color</th>
-		    <th data-column-id="length" data-type="numeric">Length</th>
-		    <th data-column-id="radious" data-type="numeric">Radious</th>
-		    <th data-column-id="max" data-type="numeric">Max</th>
-		    <th data-column-id="min" data-type="numeric">Min</th>
+		    <th>Color</th>
+		    <th>Length</th>
+		    <th>Radious</th>
+		    <th>Max</th>
+		    <th>Min</th>
 		  </tr>
 		</thead>
 	  <tbody>
@@ -53,7 +53,7 @@
 				      <div class="form-group has-success">
 				        <label for="name">Name</label>
 				        <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" placeholder="Enter Name" value="" required>
-				        <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone else.</small>
+				        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone else.</small> -->
 				      </div>
 				      <div class="form-group">
 				        <label for="unit">Unit</label>
