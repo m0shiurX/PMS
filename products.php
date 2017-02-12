@@ -63,7 +63,7 @@
 		  <div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">×</button>
-				<h4>Product Details</h4>
+				<h4>Product Information</h4>
 			</div>
 				<form class="form-horizontal well" id="insert_form" method="POST">
 			<div class="modal-body">
