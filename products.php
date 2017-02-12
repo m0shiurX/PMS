@@ -12,28 +12,48 @@
 	<div class="dashboard">
 
 	<div class="col-md-12 col-sm-12" id="product_table">
-	<h3>List of Products</h3>
-	<hr>
-	<button type="button" name="add" id="add" class="btn btn-info btn-lg" data-toggle="modal" data-target="#add_product">ADD</button>
-	<table id="product_data" class="table table-striped">
-		<thead class="thead-inverse">
-		  <tr>
-		    <th>ID</th>
-		    <th>Action</th>
-		    <th>Name</th>
-		    <th>Unit</th>
-		    <th>Details</th>
-		    <th>Category</th>
-		    <th>Color</th>
-		    <th>Length</th>
-		    <th>Radious</th>
-		    <th>Max</th>
-		    <th>Min</th>
-		  </tr>
-		</thead>
-	  <tbody>
-	  </tbody>
-	</table>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+		<h4>Products</h4>
+		</div>
+		<div class="panel-body">
+			<div class="col-md-6">
+				<button type="button" name="add" id="add" class="btn btn-info" data-toggle="modal" data-target="#add_product">ADD</button>
+			</div>
+			<div class="col-md-6">
+				<form class="form-inline pull-right">
+				  <div class="form-group">
+				    <label class="sr-only" for="search">Search for</label>
+				    <div class="input-group">
+				      <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+				      <input type="text" class="form-control" id="search" placeholder="Type a name">
+				      <div class="input-group-addon"></div>
+				    </div>
+				  </div>
+				  <!-- <button type="submit" class="btn btn-info">Search</button> -->
+				</form>
+			</div>
+		</div>
+		<table id="product_data" class="table table-striped">
+			<thead class="thead">
+			  <tr class="info">
+			    <th>ID</th>
+			    <th>Action</th>
+			    <th>Name</th>
+			    <th>Unit</th>
+			    <th>Details</th>
+			    <th>Category</th>
+			    <th>Color</th>
+			    <th>Length</th>
+			    <th>Radious</th>
+			    <th>Max</th>
+			    <th>Min</th>
+			  </tr>
+			</thead>
+		  <tbody>
+		  </tbody>
+		</table>
+	</div>
 	</div>
 	</div>
 	<!-- invisible content -->
@@ -43,7 +63,7 @@
 		  <div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">×</button>
-				<h2>Product Details</h2>
+				<h4>Product Details</h4>
 			</div>
 				<form class="form-horizontal well" id="insert_form" method="POST">
 			<div class="modal-body">
@@ -101,8 +121,8 @@
 				  </fieldset>
 			</div>
 			<div class="modal-footer">
-			<button type="submit" class="btn btn-primary btn-lg" id="submit">Submit</button>
-			<a href="#" class="btn btn-warning btn-lg" data-dismiss="modal">Cancel</a>
+			<button type="submit" class="btn btn-primary btn-sm" id="submit">Submit</button>
+			<a href="#" class="btn btn-warning btn-sm" data-dismiss="modal">Cancel</a>
 			</div>
 				</form>
 		  </div>
@@ -169,3 +189,27 @@
 		window.onload=viewData();
 	</script>
 
+	<script type="text/javascript">
+	  $(function() {
+	    grid = $('#product_data');
+
+	    // handle search fields of members key up event
+	    $('#search').keyup(function(e) { 
+	      text = $(this).val(); // grab search term
+
+	      if(text.length > 1) {
+	        grid.find('tr:has(td)').hide(); // hide data rows, leave header row showing
+
+	        // iterate through all grid rows
+	        grid.find('tr').each(function(i) {
+	          // check to see if search term matches Name column
+	          if($(this).find('.search').text().toUpperCase().match(text.toUpperCase()))
+	            $(this).show(); // show matching row
+	        });
+	      }
+	      else 
+	        grid.find('tr').show(); // if no matching name is found, show all rows
+	    });
+	    
+	  }); 
+	</script>

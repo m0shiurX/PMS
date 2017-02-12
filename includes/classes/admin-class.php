@@ -113,10 +113,20 @@
 					$request3->execute([$pro_id, $qty]);
 					$this->dbh->commit();
 					return true;
-			} catch (PDOException $e) {
+			} catch (Exception $e) {
 				$this->dbh->rollBack();
 				return false;
 			}
+		}
+
+
+		/**
+		 * Delete a product
+		 */
+		public function deleteUser($id)
+		{
+			$request = $this->dbh->prepare("DELETE FROM kp_user WHERE user_id = ?");
+			return $request->execute([$id]);
 		}
 
 		/**
@@ -183,6 +193,19 @@
 			}
 			return false;
 		}
+		/**
+		 * Fetch products
+		 */
+		
+		public function fetchChartData()
+		{
+			$request = $this->dbh->prepare("SELECT raw_id, raw_quantity FROM kp_raw  ORDER BY raw_id");
+			if ($request->execute()) {
+				return $request->fetchAll();
+			}
+			return false;
+		}
+
 
 		/**
 		 * Fetch products 
@@ -263,8 +286,8 @@
 		{
 			try {
 				$this->dbh->beginTransaction();
-					$request = $this->dbh->prepare("INSERT INTO kp_production (pro_id, pro_qty, date) VALUES(?,?,?)");
-					$request->execute([$proselect, $production, $date]);
+					$request = $this->dbh->prepare("INSERT INTO kp_production (pro_id, pro_qty, date, pro_fin, pro_unfin) VALUES(?,?,?,?,?)");
+					$request->execute([$proselect, $production, $date, $finished, $unfinished]);
 
 					$request2 = $this->dbh->prepare("UPDATE pro_finished SET pro_qty = pro_qty+? WHERE pro_id = ?");
 					$request2->execute([$finished, $proselect]);
@@ -273,8 +296,34 @@
 					$request3->execute([$unfinished, $proselect]);
 				$this->dbh->commit();
 				return true;
-			} catch (PDOException $e) {
+			} catch (Exception $e) {
 				$this->dbh->rollBack();
+				return false;
+			}
+		}
+		/*
+		 *	Delete a raw product
+		 */
+
+		public function deleteProduction($id)
+		{
+			try {
+					// $this->dbh->beginTransaction();
+					// $request1 = $this->dbh->prepare("SELECT id, pro_id, pro_qty FROM kp_production WHERE id = ?");
+					// $request1->execute([$id]);
+					// $request1->fetch(PDO::FETCH_CLASS,'Admin');
+					// $quantity = $this->request1->pro_qty;
+					// $pro_id = $this->request1->pro_id;
+
+					// $request2 = $this->dbh->prepare("UPDATE pro_finished SET pro_qty = (pro_qty-?) WHERE pro_id = ?");
+					// $request2->execute([$quantity, $pro_id]);
+
+					$request = $this->dbh->prepare("DELETE FROM kp_production WHERE id = ?");
+					$request->execute([$id]);
+					// $this->dbh->commit();
+				return true;
+			} catch (Exception $e) {
+				//$this->dbh->rollBack();
 				return false;
 			}
 		}
@@ -293,8 +342,35 @@
 					$request2->execute([$available, $raw_id]);
 				$this->dbh->commit();
 				return true;
-			} catch (PDOException $e) {
+			} catch (Exception $e) {
 				$this->dbh->rollBack();
+				return false;
+			}
+		}
+
+		/*
+		 *	Delete a raw product
+		 */
+
+		public function deleteRawData($id)
+		{
+			try {
+					// $this->dbh->beginTransaction();
+					// $request1 = $this->dbh->prepare("SELECT id, pro_id, pro_qty FROM kp_production WHERE id = ?");
+					// $request1->execute([$id]);
+					// $request1->fetch(PDO::FETCH_CLASS,'Admin');
+					// $quantity = $this->request1->pro_qty;
+					// $pro_id = $this->request1->pro_id;
+
+					// $request2 = $this->dbh->prepare("UPDATE pro_finished SET pro_qty = (pro_qty-?) WHERE pro_id = ?");
+					// $request2->execute([$quantity, $pro_id]);
+
+					$request = $this->dbh->prepare("DELETE FROM raw_stocking WHERE id = ?");
+					$request->execute([$id]);
+					// $this->dbh->commit();
+				return true;
+			} catch (Exception $e) {
+				//$this->dbh->rollBack();
 				return false;
 			}
 		}
@@ -314,13 +390,39 @@
 
 				$this->dbh->commit();
 				return true;
-			} catch (PDOException $e) {
+			} catch (Exception $e) {
 				$this->dbh->rollBack();
 				return false;
 			}
 		}
 
 
+		/*
+		 *	Delete a raw product
+		 */
+
+		public function deleteStocking($id)
+		{
+			try {
+					// $this->dbh->beginTransaction();
+					// $request1 = $this->dbh->prepare("SELECT id, pro_id, pro_qty FROM kp_production WHERE id = ?");
+					// $request1->execute([$id]);
+					// $request1->fetch(PDO::FETCH_CLASS,'Admin');
+					// $quantity = $this->request1->pro_qty;
+					// $pro_id = $this->request1->pro_id;
+
+					// $request2 = $this->dbh->prepare("UPDATE pro_finished SET pro_qty = (pro_qty-?) WHERE pro_id = ?");
+					// $request2->execute([$quantity, $pro_id]);
+
+					$request = $this->dbh->prepare("DELETE FROM kp_stocking WHERE id = ?");
+					$request->execute([$id]);
+					// $this->dbh->commit();
+				return true;
+			} catch (Exception $e) {
+				//$this->dbh->rollBack();
+				return false;
+			}
+		}
 
 		/*
 		*Fetch production from database

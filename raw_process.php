@@ -6,7 +6,6 @@
 	$admins	= new Admins($dbh);
 
 	$page = isset($_GET[ 'p' ])?$_GET[ 'p' ]:'';
-	$products = $admins->fetchrawProducts();
 
 	if($page == 'add'){
 			$name = $_POST['name'];
@@ -41,19 +40,20 @@
 		}
 
 	}else{
+		$products = $admins->fetchrawProducts();
 		if (isset($products) && sizeof($products) > 0){ 
 			foreach ($products as $product) { ?>
 				<tr>
 					<td scope="row"><?=$product->raw_id ?></td>
 					<td>
-						<button type="button" class="btn btn-success" id="edit" data-toggle="modal" data-target="#edit-<?=$product->raw_id?>">EDIT</button>
+						<button type="button" class="btn btn-success btn-sm" id="edit" data-toggle="modal" data-target="#edit-<?=$product->raw_id?>">EDIT</button>
 						<!-- Update modal -->
 						<div class="fade modal" id="edit-<?=$product->raw_id?>">
 							<div class="modal-dialog" role="document">
 							  <div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal">×</button>
-									<h2>Edit Raw Details</h2>
+									<h4>Edit Raw Details</h4>
 								</div>
 								<form method="POST">
 								<div class="modal-body">
@@ -75,17 +75,17 @@
 									      </div>
 								</div>
 								<div class="modal-footer">
-								<button type="submit" onclick="upData(<?=$product->raw_id ?>)" class="btn btn-primary btn-lg">Update</button>
-								<a href="#" class="btn btn-warning btn-lg" data-dismiss="modal">Cancel</a>
+								<button type="submit" onclick="upData(<?=$product->raw_id ?>)" class="btn btn-primary">Update</button>
+								<a href="#" class="btn btn-warning" data-dismiss="modal">Cancel</a>
 								</div>
 								</form>
 							  </div>
 							</div>
 						</div>
 						<!-- modalend -->
-						<button type="button" id="delete" onclick="delData(<?=$product->raw_id ?>)" class="btn btn-danger">DELETE</button>
+						<button type="button" id="delete" onclick="delData(<?=$product->raw_id ?>)" class="btn btn-warning btn-sm">DELETE</button>
 					</td>
-					<td><?=$product->raw_name?></a></td>
+					<td class="search"><?=$product->raw_name?></a></td>
 					<td><?=$product->raw_unit?></td>
 					<td><?=$product->raw_details?></td>
 				</tr>

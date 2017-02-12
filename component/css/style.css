@@ -12,7 +12,7 @@ html {
 }
 
 body {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-family: "Open Sans", sans-serif;
   color: #3e454c;
   background-color: #ffffff;
@@ -24,16 +24,16 @@ body::after {
 }
 
 a {
-  color: #1784c7;
-  text-decoration: none !important;
+  /*color: #1784c7;
+  text-decoration: none !important;*/
 }
 a:hover {
   text-decoration: none !important;
 }
 
 input {
-  font-family: "Open Sans", sans-serif;
-  font-size: 1.6rem;
+ /* font-family: "Open Sans", sans-serif;
+  font-size: 1.6rem;*/
 }
 
 input[type="search"]::-webkit-search-decoration,
@@ -91,7 +91,7 @@ Header
 -------------------------------- */
 .cd-main-header {
   position: absolute;
-  z-index: 2;
+  z-index: 999;
   top: 0;
   left: 0;
   height: 45px;
@@ -498,9 +498,9 @@ Sidebar
 }
 @media only screen and (min-width: 768px) {
   .cd-side-nav {
-    position: relative;
+    position: absolute;
     float: left;
-    top: auto;
+    top: 10px;
     width: 110px;
     min-height: 100vh;
     padding-top: 55px;
@@ -764,7 +764,7 @@ Sidebar
   z-index: 2;
 }
 .form-signin input[type="text"] {
-  margin-bottom: -1px;
+  margin-bottom: 5px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }

@@ -11,16 +11,17 @@
 <!doctype html>
 <html lang="en" class="no-js">
 <head>
-	<meta charset="UTF-8">
+	<meta charset=" utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
 
-	<link rel="stylesheet" href="component/css/reset.css"> <!-- CSS reset -->
+<!-- 	<link rel="stylesheet" href="component/css/reset.css">  -->
 	<link rel="stylesheet" href="component/css/bootstrap.css"> <!-- CSS bootstrap -->
+	<link rel="stylesheet" href="component/css/jquery.bootgrid.css"> <!-- Bootgrid stylesheet -->
 	<link rel="stylesheet" href="component/css/style.css"> <!-- Resource style -->
-	<!-- <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/redmond/jquery-ui.css" /> -->
 	<script src="component/js/modernizr.js"></script> <!-- Modernizr -->
+
   	
 	<title>SMS</title>
 </head>
@@ -63,22 +64,23 @@
 				<li class="has-children overview">
 					<a href="index.php">Dashboard</a>
 				</li>
-				<li class="has-children notifications active">
+				<li class="has-children overview active">
 					<a href="#0">Statictics<!-- <span class="count">3</span> --></a>
 					
 					<ul>
-						<li><a href="product_stat.php">Production</a></li>
-						<li><a href="production_stat.php">Daily Statictics</a></li>
-						<li><a href="raw_data.php">Raw Materials</a></li>
+						<li><a href="product_stat.php">Product Stock</a></li>
+						<li><a href="production_stat.php">Product Statictics</a></li>
+						<li><a href="raw_data.php">Raw Stock</a></li>
+						<li><a href="raw_stock.php">Raw Statictics</a></li>
 					</ul>
 				</li>
 
-				<li class="has-children stack active">
-					<a href="#0">Insert Data</a>
+				<li class="has-children overview active">
+					<a href="#0">Stocking</a>
 					<ul>
 						<li><a href="production.php">Production</a></li>
-						<li><a href="daily_data.php">Daily DATA</a></li>
-						<li><a href="raw_stat.php">Raw Data</a></li>
+						<li><a href="daily_data.php">Daily Stock</a></li>
+						<li><a href="raw_stat.php">Raw</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -88,7 +90,7 @@
 				<li class="has-children bookmarks">
 					<a href="products.php">Products</a>
 				</li>
-				<li class="has-children images">
+				<li class="has-children bookmarks">
 					<a href="raw.php">Raw Materials</a>
 				</li>
 

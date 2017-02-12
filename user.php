@@ -12,39 +12,44 @@
 		<?php
 			require_once "includes/classes/admin-class.php";
 			$admins = new Admins($dbh);
-			$users = $admins->fetchAdmin(); 
 		?>
 
 	<div class="dashboard">		
 
 	<div class="col-md-12 col-sm-12" id="employee_table">
-		<h3>List of Users</h3>
-		<hr>
-		<button type="button" name="add" id="add" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#add_data_Modal">ADD</button>
-
-
-		<div class="card">
-		  <div class="card-header">
-		    Featured
-		  </div>
-		  <div class="card-block">
-		    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		   </div>
-		  <div class="card-footer text-muted">
-		    2 days ago
-		  </div>
-		</div>
-
-
-
-		<table class="table table-striped">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+			<h4>List of Users</h4>
+			</div>
+			<div class="panel-body">
+				<div class="col-md-6">
+				<button type="button" name="add" id="add" class="btn btn-info" data-toggle="modal" data-target="#add_data_Modal">ADD</button>
+				</div>
+				<div class="col-md-6">
+					<form class="form-inline pull-right">
+					  <div class="form-group">
+					    <label class="sr-only" for="search">Search for</label>
+					    <div class="input-group">
+					      <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+					      <input type="text" class="form-control" id="search" placeholder="Type a name">
+					      <div class="input-group-addon"></div>
+					    </div>
+					  </div>
+					  <!-- <button type="submit" class="btn btn-info">Search</button> -->
+					</form>
+				</div>
+				<?php if ( isset($_SESSION['errors']) ) {?>
+				<div class="pannel panel-warning">
+					<?php foreach ($_SESSION['errors'] as $error):?>
+						<li><?= $error ?></li>
+					<?php endforeach ?>
+				</div>
+				<?php session::destroy('errors');
+				} ?>
+			</div>
+		<table class="table table-striped" id="grid-basic">
 			<thead class="thead-inverse">
-			  <tr>
+			  <tr class="info">
 			    <th>ID </th>
 			    <th>Action</th>
 			    <th>Username</th>
@@ -55,24 +60,6 @@
 			  </tr>
 			</thead>
 		  <tbody>
-		  <?php if (isset($users) && sizeof($users) > 0) :?>
-		  	<?php foreach ($users as $user) :?>
-		  		<tr>
-		  			<td scope="row"><?=$user->user_id ?></td>
-		  			<td>
-		  				<button type="button" id="add" class="btn btn-success">EDIT</button>
-		  				<button type="button" id="add" class="btn btn-warning">DELETE</button>
-		  			</td>
-		  			<td><?= htmlspecialchars(strip_tags($user->user_name)) ?></td>
-		  			<td><?=$user->full_name?></td>
-		  			<td><?=$user->email?></td>
-		  			<td><?=$user->contact?></td>
-		  			<td><?=$user->address?></td>
-		  		</tr>
-		  	<?php endforeach ?>
-		  <?php else: ?>
-		  <i>No user is added yet.</i>
-		  <?php endif ?>
 		  </tbody>
 		</table>
 	</div>
@@ -86,7 +73,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4>Insert Date</h4>
 				</div>
-					<form class="form-horizontal" action="" method="POST" id="insert_form">
+					<form action="" method="POST" id="insert_form">
 				<div class="modal-body">
 					    <!-- form content -->
 					      <div class="form-group">
@@ -122,8 +109,8 @@
 					      </div>
 				</div>
 				<div class="modal-footer">
-							<button type="submit" class="btn btn-success btn-lg">Submit</button>
-					<a href="#" class="btn btn-warning btn-lg" data-dismiss="modal">Cancel</a>
+							<button type="submit" class="btn btn-primary">Submit</button>
+					<a href="#" class="btn btn-warning" data-dismiss="modal">Cancel</a>
 				</div>
 					</form>
 			</div>
@@ -134,19 +121,85 @@
 	include 'includes/footer.php';
 	?>
 	<script type="text/javascript">
-	$(document).ready(function(){
-		$('#insert_form').on('submit',function(event){
-			event.preventDefault();
-			$.ajax({
-				url: "user_approve.php",
-				method:"POST",
-				data:$('#insert_form').serialize(),
-				success: function (data) {
-					$('#insert_form')[0].reset();
-					$('#add_data_Modal').modal('hide');
-					$('#employee_table').html(data);
-				}
-			});
+	$('#insert_form').on('submit',function(event){
+		event.preventDefault();
+		$.ajax({
+			url: "user_approve.php?p=add",
+			method:"POST",
+			data:$('#insert_form').serialize(),
+			success: function (data) {
+				$('#insert_form')[0].reset();
+				$('#add_data_Modal').modal('hide');
+				viewData();
+			}
 		});
 	});
+	function viewData() {
+		$.ajax({
+			method: "GET",
+			url:"user_approve.php",
+			success: function(data){
+				$('tbody').html(data);
+			}
+		});
+	}
+	function delData(del_id){
+		var id = del_id;
+		$.ajax({
+			method:"POST",
+			url: "user_approve.php?p=del",
+			data: "id="+id,
+			success: function (data){
+				viewData();
+			}
+		});
+	}
+	function upData(str){
+		var id = str;
+		var name = $('#nm-'+str).val();
+		var unit = $('#un-'+str).val();
+		var details = $('#dt-'+str).val();
+		$.ajax({
+			method:"POST",
+			url: "user_approve.php?p=edit",
+			data: "name="+name+"&unit="+unit+"&details="+details+"&id="+id,
+			success: function (data){
+				viewData();
+			}
+		});
+	}
+	// $("#grid-basic").bootgrid({
+	// 	formatters: {
+	// 	    "commands": function(column, row)
+	// 	    {
+	// 	        return "<button type=\"button\" class=\"btn btn-xs btn-danger command-edit\" data-row-id=\"" + row.id + "\" id=\"delete\"  onclick=\"delData("+row.id+")\">DELETE</button>"+"<button type=\"button\" class=\"btn btn-success btn-xs command-edit\" id=\"edit\" data-row-id=\"" + row.id + "\" data-toggle=\"modal\" data-target=\"#edit-"+ row.id+"\" onclick=\"upData("+row.id+")\">EDIT</button>";
+
+	// 	    }
+	// 	}
+	// });
+	window.onload = viewData();
+	</script>
+	<script type="text/javascript">
+	  $(function() {
+	    grid = $('#grid-basic');
+
+	    // handle search fields of members key up event
+	    $('#search').keyup(function(e) { 
+	      text = $(this).val(); // grab search term
+
+	      if(text.length > 1) {
+	        grid.find('tr:has(td)').hide(); // hide data rows, leave header row showing
+
+	        // iterate through all grid rows
+	        grid.find('tr').each(function(i) {
+	          // check to see if search term matches Name column
+	          if($(this).find('.search').text().toUpperCase().match(text.toUpperCase()))
+	            $(this).show(); // show matching row
+	        });
+	      }
+	      else 
+	        grid.find('tr').show(); // if no matching name is found, show all rows
+	    });
+	    
+	  }); 
 	</script>

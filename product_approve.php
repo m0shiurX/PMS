@@ -58,16 +58,16 @@
 		if (isset($products) && sizeof($products) > 0){ 
 			foreach ($products as $product) { ?>
 				<tr>
-					<td scope="row"><?=$product->pro_id?></td>
+					<td class="search" scope="row"><?=$product->pro_id?></td>
 					<td>
-						<button type="button" class="btn btn-success" id="edit" data-toggle="modal" data-target="#edit-<?=$product->pro_id?>">EDIT</button>
+						<button type="button" class="btn btn-success btn-sm" id="edit" data-toggle="modal" data-target="#edit-<?=$product->pro_id?>">EDIT</button>
 						<!-- Update modal -->
 						<div class="fade modal" id="edit-<?=$product->pro_id?>">
 							<div class="modal-dialog" role="document">
 							  <div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal">×</button>
-									<h2 id="datam">Edit Details</h2>
+									<h4>Edit Details</h4>
 								</div>
 								<form method="POST" action="product_approve.php?p=edit">
 								<div class="modal-body">
@@ -124,20 +124,20 @@
 										  </div>
 								</div>
 								<div class="modal-footer">
-								<button type="submit" onclick="upData(<?=$product->pro_id?>)" class="btn btn-primary btn-lg">Update</button>
-								<a href="#" class="btn btn-warning btn-lg" data-dismiss="modal">Cancel</a>
+								<button type="submit" onclick="upData(<?=$product->pro_id?>)" class="btn btn-primary">Update</button>
+								<a href="#" class="btn btn-warning" data-dismiss="modal">Cancel</a>
 								</div>
 								</form>
 							  </div>
 							</div>
 						</div>
 						<!-- modalend -->
-						<button type="button" id="delete" onclick="delData(<?=$product->pro_id?>)" class="btn btn-danger">DELETE</button>
+						<button type="button" id="delete" onclick="delData(<?=$product->pro_id?>)" class="btn btn-warning btn-sm">DELETE</button>
 					</td>
-					<td><?=$product->pro_name?></td>
+					<td class="search"><?=$product->pro_name?></td>
 					<td><?=$product->pro_unit?></td>
-					<td><?=$product->pro_details?></td>
-					<td><?=$product->pro_category?></td>
+					<td class="search"><?=$product->pro_details?></td>
+					<td class="search"><?=$product->pro_category?></td>
 					<td><?=$product->pro_color?></td>
 					<td><?=$product->pro_length?></td>
 					<td><?=$product->pro_radious?></td>

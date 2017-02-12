@@ -9,67 +9,78 @@
 	$admins	= new Admins($dbh);
 
 	// check if the form is submitted
+	$page = isset($_GET[ 'p' ])?$_GET[ 'p' ]:'';
 
+	if($page == 'add'){
+			$username = $_POST['username'];
+			$email = $_POST['email'];
+			$password = $_POST['password'];
+			$repassword = $_POST['repassword'];
+			$fullname = $_POST['fullname'];
+			$address = $_POST['address'];
+			$contact = $_POST['contact'];
 
-	if (isset($_POST)) 
-	{
-		// If the form is submitted
+			if (isset($_POST)) 
+			{
 
-		$errors = array();
+				$errors = array();
 
-		foreach($_POST as $key => $value) 
+				// Check if password are the same
+				if (!$admins->ArePasswordSame($_POST['password'], $_POST['repassword'])) 
+				{
+					session::set('errors', ['The two passwords do not match.']);
+				}elseif ($admins->adminExists($_POST['username'])) {
+					session::set('errors', ['This username is already in use by another admin.']);
+				}elseif (!$admins->addNewAdmin($username, $password, $email, $fullname, $address, $contact)) {
+					session::set('errors', ['An error occured while saving the new admin.']);
+				}else{
+					session::set('confirm', 'New admin added successfully!');
+					unset($_POST['repassword']);
+				}
+			}
+	}else if($page == 'del'){
+		$id = $_POST['id'];
+		if (!$admins->deleteUser($id)) 
 		{
-		  if(empty($value) || trim($value) == '') {
-		    $errors[$key] =$key." should not be empty.";
-		  }
-		  $$key = $value;
-		}
-
-		// If there is any error we send back to the form
-		if (!empty($errors) || sizeof($errors) != 0) 
-		{
-			session::set('errors', $errors);
-		}
-
-		// Check if password are the same
-		if (!$admins->ArePasswordSame($_POST['password'], $_POST['repassword'])) 
-		{
-			session::set('errors', ['The two passwords do not match.']);
-		}
-
-		// From here you can unset the repassword field
-		unset($_POST['repassword']);
-
-		
-		// Now let's check if another admin is not using the new username already
-		if ($admins->adminExists($_POST['username'])) 
-		{
-			session::set('errors', ['This username is already in use by another admin.']);
-		}
-
-		// We've checked everything, 
-		// now we can CREATE the admin in the admins table
-		
-		if (!$admins->addNewAdmin($username, $password, $email, $fullname, $address, $contact)) 
-		{
-			session::set('errors', ['An error occured while saving the new admin.']);
+			echo "Sorry Data could not be deleted !";
 		}else {
-			// Else we display a confirmation message
-			session::set('confirm', 'New admin added successfully!');
+			echo "Well! You've successfully deleted a product!";
 		}
-	if ( isset($_SESSION['errors']) ) {?>
-	<div class="pannel panel-warning">
-		<?php foreach ($_SESSION['errors'] as $error):?>
-			<li><?= $error ?></li>
-		<?php endforeach ?>
-	</div>
-	<?php session::destroy('errors');
+
+	}else if($page == 'edit'){
+		$username = $_POST['username'];
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+		$repassword = $_POST['repassword'];
+		$fullname = $_POST['fullname'];
+		$address = $_POST['address'];
+		$contact = $_POST['contact'];
+		$user_id = $_POST['user_id'];
+		if (!$admins->updateRawProduct($id, $name, $unit, $details)) 
+		{
+			echo "Sorry Data could not be inserted !";
+		}else {
+			echo "Well! You've successfully inserted new data!";
 		}
-	if ( isset($_SESSION['confirm']) ) { ?>
-	<div class="pannel panel-success">
-		<li><?= $_SESSION['confirm'] ?></li>
-	</div>
-	<?php session::destroy('confirm');
+
+	}else{
+		$users = $admins->fetchAdmin(); 
+		if (isset($users) && sizeof($users) > 0) {
+			foreach ($users as $user){ ?>
+				<tr>
+					<td scope="row"><?=$user->user_id ?></td>
+					<td>
+						<!-- <button type="button" id="add" class="btn btn-success btn-sm">EDIT</button> -->
+						<button type="button" id="delete" onclick="delData(<?=$user->user_id ?>)" class="btn btn-warning btn-sm">DELETE</button>
+					</td>
+					<td class="search"><?=$user->user_name?></td>
+					<td class="search"><?=$user->full_name?></td>
+					<td class="search"><?=$user->email?></td>
+					<td class="search"><?=$user->contact?></td>
+					<td class="search"><?=$user->address?></td>
+				</tr>
+			<?php
+			}
+		}
 	}
-}
 ?>

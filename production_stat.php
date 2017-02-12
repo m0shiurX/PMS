@@ -1,25 +1,36 @@
-<?php include 'includes/header.php'; ?>
++<?php include 'includes/header.php'; ?>
 <?php
 	require_once "includes/classes/admin-class.php";
 	$admins	= new Admins($dbh);
 ?>
+<div class="dashboard">
 	<div class="col-md-12 col-sm-12">
-	<!-- <h3>Production Page</h3> -->
-		<br>
+	<h3 class="col-md-3">Statictics of Production</h3>
+	<div class="col-md-3 pull-right">
+		<form class="form-inline  pull-right">
+		  <div class="form-group">
+		    <label class="sr-only" for="search">Search for</label>
+		    <div class="input-group">
+		      <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+		      <input type="text" class="form-control" id="search" placeholder="Type a name">
+		      <div class="input-group-addon"></div>
+		    </div>
+		  </div>
+		<!-- <button type="submit" class="btn btn-info">Search</button> -->
+		</form>
 	</div>
-	<div class="clear"><br><br></div>
+	<hr>
 	<div class="col-md-12 col-sm-12">
-		<table class="table table-striped">
+		<table class="table table-striped table-bordered">
 			<thead class="thead-inverse">
 			  <tr>
 			    <th>ID </th>
-			    <th>Action</th>
+			    <th>Date</th>
 			    <th>Product ID</th>
 			    <th>Product Name</th>
-			    <th>Production</th>
-			    <th>Finished</th>
-			    <th>Unfinished</th>
-			    <th>Date</th>
+			    <th>Sold</th>
+			    <th>Waste</th>
+			    <th>Return</th>
 			  </tr>
 			</thead>
 		  <tbody>
@@ -40,18 +51,18 @@
 		  	?>
 		    <tr>
 		    	<td><?=$product->id?></td>
-		    	<td><button type="button" id="delete" onclick="delData(<?=$product->pro_id?>)" class="btn btn-danger">DELETE</button></td>
+		    	<td><?=$product->date?></td>
 		    	<td><?=$product->pro_id?></td>
 		    	<td><?php echo $product_name; ?></td>
 		    	<td><?=$product->pro_sold?></td>
 		    	<td><?=$product->pro_waste?></td>
 		    	<td><?=$product->pro_return?></td>
-		    	<td><?=$product->date?></td>
 		    </tr>
 		  <?php }} ?>
 		  </tbody>
 		</table>
 	</div>
+</div>
 <?php include 'includes/footer.php'; ?>
 <script type="text/javascript">
 	document.getElementById('date').valueAsDate = new Date();
